@@ -46,6 +46,7 @@
   background: #fff;
 }
 
+/* Popup overlay */
 .tisso-popup-overlay {
   position: fixed;
   inset: 0;
@@ -56,9 +57,13 @@
   z-index: 999;
 }
 
+.tisso-popup-overlay[hidden] {
+  display: none !important;
+}
+
 .tisso-popup {
   background: #fff;
-  max-width: 420px;
+  max-width: 380px;
   width: 90%;
   padding: 24px;
   position: relative;
@@ -68,78 +73,157 @@
 
 .tisso-popup__close {
   position: absolute;
-  top: 12px;
+  top: 14px;
   right: 16px;
   background: none;
   border: none;
-  font-size: 22px;
+  font-size: 20px;
   cursor: pointer;
+  line-height: 1;
 }
 
-.tisso-popup__body {
+/* Top row: image + info side by side */
+.tisso-popup__top {
   display: flex;
   gap: 16px;
+  margin-bottom: 20px;
 }
 
 .tisso-popup__image {
   width: 100px;
-  height: 100px;
+  height: 110px;
   object-fit: cover;
   flex-shrink: 0;
 }
 
+.tisso-popup__info {
+  flex: 1;
+}
+
 .tisso-popup__title {
-  margin: 0 0 6px;
-  font-size: 18px;
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 400;
 }
 
 .tisso-popup__price {
   font-weight: 600;
-  margin: 0 0 10px;
+  font-size: 15px;
+  margin: 0 0 8px;
 }
 
 .tisso-popup__description {
-  font-size: 13px;
+  font-size: 12px;
   color: #555;
-  margin: 0 0 16px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Option groups (Color + Size) */
+.tisso-popup__options {
+  margin-bottom: 16px;
 }
 
 .tisso-option-group {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .tisso-option-group__label {
   display: block;
-  font-size: 12px;
-  margin-bottom: 6px;
-  color: #666;
-}
-
-.tisso-option-group__values {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tisso-option-value {
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 6px 14px;
   font-size: 13px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  margin-bottom: 8px;
+  color: #333;
 }
 
-.tisso-option-value.is-selected {
-  border-color: #111;
-  background: #111;
+/* Full-width segmented control (Color) */
+.tisso-segmented {
+  display: flex;
+  border: 1px solid #000;
+  width: 100%;
+}
+
+.tisso-segmented__option {
+  flex: 1;
+  padding: 12px 10px;
+  text-align: left;
+  border: none;
+  border-right: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tisso-segmented__option:last-child {
+  border-right: none;
+}
+
+.tisso-segmented__option.is-selected {
+  background: #000;
   color: #fff;
 }
 
+/* Size dropdown */
+.tisso-select-wrap {
+  position: relative;
+  border: 1px solid #ccc;
+}
+
+.tisso-select {
+  width: 100%;
+  padding: 12px 36px 12px 12px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.tisso-select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Add to cart — full width black bar */
 .tisso-popup__add-btn {
   width: 100%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  gap: 10px;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tisso-popup__add-btn:hover {
+  background: #222;
+}
+
+.tisso-btn__arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.tisso-popup__add-btn:hover .tisso-btn__arrow {
+  transform: translateX(6px);
 }
 
 .tisso-popup__message {
@@ -148,15 +232,12 @@
   text-align: center;
 }
 
+/* Mobile */
 @media screen and (max-width: 749px) {
   .tisso-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .tisso-popup__body {
-    flex-direction: column;
-  }
-  .tisso-popup__image {
-    width: 100%;
-    height: auto;
+  .tisso-popup {
+    max-width: 320px;
   }
 }

@@ -1,3 +1,15 @@
+/**
+ * Custom Product Grid + Popup logic
+ * Vanilla JS only — no jQuery.
+ *
+ * Handles:
+ *  - Opening popup with dynamic product/variant data (Shopify AJAX API)
+ *  - Rendering "Color"-type options as a full-width segmented control
+ *  - Rendering "Size"-type options as a native dropdown
+ *  - Selecting a variant and updating price
+ *  - Add to Cart (with special rule: Black + Medium variant
+ *    also adds "Soft Winter Jacket" to the cart)
+ */
 
 (function () {
   // ---- CONFIG ----
@@ -60,67 +72,126 @@
     popupOptions.innerHTML = '';
 
     var firstVariant = product.variants[0];
+
+    // Pre-select color-type options to the first variant's value.
+    // Leave size-type options unselected until the shopper picks one
+    // (matches the "Choose your size" placeholder in the design).
     product.options.forEach(function (optionName, index) {
-      selectedOptions[optionName] = firstVariant.options[index];
+      if (isSizeOption(optionName)) {
+        selectedOptions[optionName] = null;
+      } else {
+        selectedOptions[optionName] = firstVariant.options[index];
+      }
     });
 
-    updatePrice(firstVariant);
+    updatePriceDisplay();
 
     product.options.forEach(function (optionName, index) {
-      var group = document.createElement('div');
-      group.className = 'tisso-option-group';
-
-      var label = document.createElement('span');
-      label.className = 'tisso-option-group__label';
-      label.textContent = optionName;
-      group.appendChild(label);
-
-      var valuesWrap = document.createElement('div');
-      valuesWrap.className = 'tisso-option-group__values';
-
       var uniqueValues = [];
       product.variants.forEach(function (variant) {
         var value = variant.options[index];
         if (uniqueValues.indexOf(value) === -1) uniqueValues.push(value);
       });
 
-      uniqueValues.forEach(function (value) {
-        var isSelected = selectedOptions[optionName] === value;
-        var optionBtn = document.createElement('button');
-        optionBtn.type = 'button';
-        optionBtn.className = 'tisso-option-value' + (isSelected ? ' is-selected' : '');
-        optionBtn.textContent = value;
-        optionBtn.setAttribute('data-option-name', optionName);
-        optionBtn.setAttribute('data-option-value', value);
-
-        optionBtn.addEventListener('click', function () {
-          selectedOptions[optionName] = value;
-          valuesWrap.querySelectorAll('.tisso-option-value').forEach(function (b) {
-            b.classList.remove('is-selected');
-          });
-          optionBtn.classList.add('is-selected');
-
-          var matchedVariant = findMatchingVariant(product);
-          updatePrice(matchedVariant);
-        });
-
-        valuesWrap.appendChild(optionBtn);
-      });
-
-      group.appendChild(valuesWrap);
-      popupOptions.appendChild(group);
+      if (isSizeOption(optionName)) {
+        popupOptions.appendChild(buildSizeDropdown(optionName, uniqueValues, product));
+      } else {
+        popupOptions.appendChild(buildSegmentedControl(optionName, uniqueValues, product));
+      }
     });
   }
 
-  function updatePrice(variant) {
+  function isSizeOption(optionName) {
+    return optionName.toLowerCase().indexOf('size') !== -1;
+  }
+
+  // ---- Color-style full-width segmented control ----
+  function buildSegmentedControl(optionName, values, product) {
+    var group = document.createElement('div');
+    group.className = 'tisso-option-group';
+
+    var label = document.createElement('span');
+    label.className = 'tisso-option-group__label';
+    label.textContent = optionName;
+    group.appendChild(label);
+
+    var row = document.createElement('div');
+    row.className = 'tisso-segmented';
+
+    values.forEach(function (value) {
+      var isSelected = selectedOptions[optionName] === value;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tisso-segmented__option' + (isSelected ? ' is-selected' : '');
+      btn.textContent = value;
+
+      btn.addEventListener('click', function () {
+        selectedOptions[optionName] = value;
+        row.querySelectorAll('.tisso-segmented__option').forEach(function (b) {
+          b.classList.remove('is-selected');
+        });
+        btn.classList.add('is-selected');
+        updatePriceDisplay();
+      });
+
+      row.appendChild(btn);
+    });
+
+    group.appendChild(row);
+    return group;
+  }
+
+  // ---- Size dropdown ----
+  function buildSizeDropdown(optionName, values, product) {
+    var group = document.createElement('div');
+    group.className = 'tisso-option-group';
+
+    var label = document.createElement('span');
+    label.className = 'tisso-option-group__label';
+    label.textContent = optionName;
+    group.appendChild(label);
+
+    var wrap = document.createElement('div');
+    wrap.className = 'tisso-select-wrap';
+
+    var select = document.createElement('select');
+    select.className = 'tisso-select';
+
+    var placeholder = document.createElement('option');
+    placeholder.textContent = 'Choose your size';
+    placeholder.value = '';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    select.appendChild(placeholder);
+
+    values.forEach(function (value) {
+      var opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = value;
+      select.appendChild(opt);
+    });
+
+    select.addEventListener('change', function () {
+      selectedOptions[optionName] = select.value;
+      updatePriceDisplay();
+    });
+
+    wrap.appendChild(select);
+    group.appendChild(wrap);
+    return group;
+  }
+
+  function updatePriceDisplay() {
+    var variant = findMatchingVariant(currentProduct);
     if (!variant) {
-      popupPrice.textContent = 'Unavailable';
+      popupPrice.textContent = currentProduct ? formatMoney(currentProduct.variants[0].price) : '';
       return;
     }
     popupPrice.textContent = formatMoney(variant.price);
   }
 
   function findMatchingVariant(product) {
+    if (!product) return null;
     return product.variants.find(function (variant) {
       return product.options.every(function (optionName, index) {
         return variant.options[index] === selectedOptions[optionName];
@@ -152,9 +223,10 @@
       { id: matchedVariant.id, quantity: 1 }
     ];
 
-    var optionValues = Object.values(selectedOptions).map(function (v) {
-      return v.toLowerCase();
-    });
+    var optionValues = Object.values(selectedOptions)
+      .filter(Boolean)
+      .map(function (v) { return v.toLowerCase(); });
+
     var triggersAutoAdd = optionValues.indexOf('black') !== -1 && optionValues.indexOf('medium') !== -1;
 
     if (triggersAutoAdd) {

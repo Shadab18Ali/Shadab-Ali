@@ -1,3 +1,4 @@
+
 <div class="tisso-grid-section">
   <h2 class="tisso-grid-section__heading">{{ section.settings.heading }}</h2>
 
@@ -28,20 +29,24 @@
 <div id="tisso-popup-overlay" class="tisso-popup-overlay" hidden>
   <div class="tisso-popup" role="dialog" aria-modal="true">
     <button type="button" class="tisso-popup__close" id="tisso-popup-close" aria-label="Close">&times;</button>
-    <div class="tisso-popup__body">
+
+    <div class="tisso-popup__top">
       <img id="tisso-popup-image" class="tisso-popup__image" src="" alt="">
-      <div class="tisso-popup__details">
+      <div class="tisso-popup__info">
         <h3 id="tisso-popup-title" class="tisso-popup__title"></h3>
         <p id="tisso-popup-price" class="tisso-popup__price"></p>
         <p id="tisso-popup-description" class="tisso-popup__description"></p>
-        <div id="tisso-popup-options" class="tisso-popup__options"></div>
-        <button type="button" id="tisso-popup-add-to-cart" class="tisso-btn tisso-btn--dark tisso-popup__add-btn">
-          <span>ADD TO CART</span>
-          <span class="tisso-btn__arrow">&rarr;</span>
-        </button>
-        <p id="tisso-popup-message" class="tisso-popup__message" hidden></p>
       </div>
     </div>
+
+    <div id="tisso-popup-options" class="tisso-popup__options"></div>
+
+    <button type="button" id="tisso-popup-add-to-cart" class="tisso-popup__add-btn">
+      <span>ADD TO CART</span>
+      <span class="tisso-btn__arrow">&rarr;</span>
+    </button>
+
+    <p id="tisso-popup-message" class="tisso-popup__message" hidden></p>
   </div>
 </div>
 
