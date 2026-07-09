@@ -1,0 +1,233 @@
+
+.gift-banner {
+  background: var(--banner-bg, #f7f6f3);
+  width: 100%;
+}
+
+/* ---- Top bar ---- */
+.gift-banner__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.gift-banner__logo {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border: 1px solid #111;
+  padding: 0.5rem 1rem;
+}
+
+.gift-banner__topbar-text {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+/* ---- Buttons (shared) ---- */
+.gift-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.8rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.gift-banner__btn--outline {
+  border: 1px solid #111;
+  color: #111;
+  background: transparent;
+}
+
+.gift-banner__btn--solid {
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
+}
+
+/* Button animation: arrow slides on hover, subtle press feedback.
+   Vanilla CSS only  */
+.animated-btn {
+  position: relative;
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.animated-btn__arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.animated-btn:hover .animated-btn__arrow {
+  transform: translateX(5px);
+}
+
+.gift-banner__btn--outline:hover {
+  background: #111;
+  color: #fff;
+}
+
+.animated-btn:active {
+  transform: scale(0.96);
+}
+
+/* ---- Main content: full-bleed image, text overlaid on top ---- */
+.gift-banner__main {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+}
+
+.gift-banner__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.gift-banner__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gift-banner__text {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 4rem;
+  max-width: 45rem;
+  /* Background color/opacity are fully customizable from the
+     customizer (Desktop text style).  */
+  background: var(--text-bg, rgba(247, 246, 243, 0.92));
+}
+
+.gift-banner__heading {
+  font-size: var(--heading-size, 4.5rem);
+  line-height: 1.05;
+  margin: 0 0 1.5rem;
+}
+
+.gift-banner__description {
+  font-size: var(--desc-size, 1.5rem);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  max-width: 42ch;
+}
+
+/* ---- Mobile header row (hamburger + centered logo) ---- */
+.gift-banner__mobile-header {
+  display: none; /* shown only on mobile, see media query below */
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.gift-banner__menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+}
+
+.gift-banner__menu-icon span {
+  display: block;
+  height: 2px;
+  background: #111;
+}
+
+.gift-banner__logo--mobile {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  border: none;
+  padding: 0;
+}
+
+/* ---- Mobile main (hidden on desktop) ---- */
+.gift-banner__main--mobile {
+  display: none; /* shown only on mobile, see media query below */
+}
+
+.gift-banner__text--mobile {
+  padding: 2rem 1.5rem 1.5rem;
+  background: var(--text-bg, transparent);
+}
+
+.gift-banner__mobile-image-wrap {
+  position: relative;
+}
+
+.gift-banner__mobile-image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gift-banner__btn--mobile-overlay {
+  position: absolute;
+  bottom: 1.5rem;
+}
+
+/* ---- Bottom bar ---- */
+.gift-banner__bottombar {
+  text-align: center;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.gift-banner__bottombar p {
+  margin: 0;
+}
+
+/* ==========================================================
+   1. Hamburger + centered logo
+   2. Heading + description
+   3. Mobile-specific image with Shop Now overlaid inside it
+   4. Bottom bar (shared markup, unchanged)
+   ========================================================== */
+@media screen and (max-width: 749px) {
+  .gift-banner__topbar--desktop {
+    display: none;
+  }
+
+  .gift-banner__main--desktop {
+    display: none;
+  }
+
+  .gift-banner__mobile-header {
+    display: flex;
+  }
+
+  .gift-banner__main--mobile {
+    display: block;
+  }
+
+  .gift-banner__description {
+    max-width: none;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .gift-banner__bottombar {
+    font-size: 1rem;
+  }
+}
