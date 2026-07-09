@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -26,36 +35,37 @@
         "heading",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,13 +73,114 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "banner_eGr4XQ": {
+      "type": "banner",
+      "name": "Banner",
+      "settings": {
+        "logo_text": "TISSO VISON",
+        "top_bar_text": "Find the ideal gift for your loved ones.",
+        "choose_gift_text": "CHOOSE GIFT",
+        "choose_gift_link": "",
+        "heading": "The Gift Guide",
+        "description": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "shop_now_text": "SHOP NOW",
+        "shop_now_link": "",
+        "banner_image": "shopify://shop_images/smiling-woman-on-snowy-afternoon_925x_bdcaf0cb-c761-46c3-a529-bd1e7849dc43.jpg",
+        "mobile_banner_image": "shopify://shop_images/menswear-blue-zip-up-jacket_925x_9485125f-511d-44b9-9968-7d2687f19fd2.jpg",
+        "shop_now_position_mobile": "center",
+        "text_alignment_desktop": "left",
+        "heading_font_size_desktop": 72,
+        "description_font_size_desktop": 24,
+        "text_block_bg_color_desktop": "#f7f6f3",
+        "text_block_bg_opacity_desktop": 92,
+        "text_alignment_mobile": "center",
+        "heading_font_size_mobile": 32,
+        "description_font_size_mobile": 14,
+        "text_block_bg_color_mobile": "#f7f6f3",
+        "text_block_bg_opacity_mobile": 100,
+        "bottom_bar_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "bg_color": "#f7f6f3"
+      }
+    },
+    "shop_the_look_ginBdT": {
+      "type": "shop-the-look",
+      "blocks": {
+        "look_product_Fj4c73": {
+          "type": "look_product",
+          "settings": {
+            "product": "black-leather-bag",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        },
+        "look_product_FEfpQH": {
+          "type": "look_product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        },
+        "look_product_M4zynB": {
+          "type": "look_product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        },
+        "look_product_GkWjrp": {
+          "type": "look_product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        },
+        "look_product_NBdYki": {
+          "type": "look_product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        },
+        "look_product_4hTiqH": {
+          "type": "look_product",
+          "settings": {
+            "product": "dark-denim-top",
+            "hotspot_x": 80,
+            "hotspot_y": 20
+          }
+        }
+      },
+      "block_order": [
+        "look_product_Fj4c73",
+        "look_product_FEfpQH",
+        "look_product_M4zynB",
+        "look_product_GkWjrp",
+        "look_product_NBdYki",
+        "look_product_4hTiqH"
+      ],
+      "name": "Shop the Look Grid",
+      "settings": {
+        "heading": "Shop the look",
+        "enable_bundle": true,
+        "bundle_option_1": "Black",
+        "bundle_option_2": "Medium",
+        "bundle_product": ""
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "banner_eGr4XQ",
+    "shop_the_look_ginBdT"
   ]
 }

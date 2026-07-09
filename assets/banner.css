@@ -1,0 +1,132 @@
+/* Custom Banner styles */
+.tisso-banner {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  padding: 20px 40px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tisso-banner__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tisso-banner__top-text {
+  font-size: 14px;
+  text-align: center;
+  flex: 1;
+}
+
+.tisso-banner__content {
+  margin-top: 60px;
+  max-width: 420px;
+}
+
+.tisso-banner__heading {
+  font-size: 48px;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.tisso-banner__description {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.tisso-banner__bottom-bar {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-top: 20px;
+}
+
+.tisso-banner__mobile-image {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+/* Buttons + animation */
+.tisso-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: background-color 0.25s ease;
+}
+
+.tisso-btn--yellow {
+  background: #f5e400;
+  color: #111;
+}
+
+.tisso-btn--dark {
+  background: #111;
+  color: #fff;
+}
+
+.tisso-btn__arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.tisso-btn:hover .tisso-btn__arrow {
+  transform: translateX(6px);
+}
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+  .tisso-banner {
+    background-image: none !important;
+    padding: 24px 20px;
+    min-height: auto;
+    text-align: center;
+    align-items: center;
+  }
+
+  .tisso-banner__top {
+    display: none;
+  }
+
+  .tisso-banner__content {
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .tisso-banner__heading {
+    font-size: 28px;
+  }
+
+  .tisso-banner__description {
+    font-size: 14px;
+  }
+
+  .tisso-btn {
+    justify-content: center;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .tisso-banner__mobile-image {
+    display: block;
+    margin-top: 24px;
+  }
+
+  .tisso-banner__bottom-bar {
+    margin-top: 16px;
+    font-size: 11px;
+  }
+}
